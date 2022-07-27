@@ -1,8 +1,6 @@
 import React from 'react'
 import jsPDF from 'jspdf'
 import htmlCanvas from 'html2canvas'
-import * as XLSX from 'xlsx/xlsx.mjs'
-import { fakeObject } from './file/csv'
 
 export const DownloadCanvas = React.forwardRef(({ imageRef }, ref) => {
   const imgRef = React.useRef(null)
@@ -31,23 +29,11 @@ export const DownloadCanvas = React.forwardRef(({ imageRef }, ref) => {
     })
   }, [imageRef])
 
-  const downloadCSV = React.useCallback(() => {
-    const worksheet = XLSX.utils.json_to_sheet(fakeObject);
-    const workbook = XLSX.utils.book_new();
-
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Dates");
-
-    const max_width = fakeObject.reduce((w, r) => Math.max(w, r.name.length), 10);
-    worksheet["!cols"] = [ { wch: max_width } ];
-
-    XLSX.writeFile(workbook, "Presidents.xlsx");
-  }, [])
   
   React.useImperativeHandle(ref, () => ({
     downloadPdf: () => downloadPDF(),
     downloadJpg: () => downloadJPG(),
-    downloadCsv: () => downloadCSV(),
-  }), [downloadPDF, downloadJPG, downloadCSV]);
+  }), [downloadPDF, downloadJPG]);
 
   return (
     <div id={imageRef} ref={imgRef}>
