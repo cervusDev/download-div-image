@@ -2,7 +2,7 @@ import React from 'react'
 import { fakeObject } from './file/csv'
 import * as XLSX from 'xlsx/xlsx.mjs';
 
-export const Sheets = React.forwardRef((props, ref) => {
+export const DownloadSheets = React.forwardRef((props, ref) => {
   React.useRef(null);
 
   const downloadCSV = React.useCallback(() => {
