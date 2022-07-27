@@ -1,7 +1,7 @@
 import React from 'react'
 import { useScreenshot, createFileName } from 'use-react-screenshot'
 
-export const DownloadDivs = React.forwardRef(({ imageRef }, ref) => {
+export const DownloadSreenShots = React.forwardRef(({ imageRef }, ref) => {
   const imgRef = React.useRef(null);
   const [image, takeScreenShot] = useScreenshot({
     type: "image/jpeg",
