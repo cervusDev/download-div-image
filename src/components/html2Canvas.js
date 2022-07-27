@@ -18,7 +18,8 @@ export const DownloadCanvas = React.forwardRef(({ imageRef }, ref) => {
 
   const downloadJPG = React.useCallback(() => {
     const input  = document.getElementById(imageRef)
-    htmlCanvas(input, { logging: true, useCORS: true }).then(canvas => {
+    htmlCanvas(input, { 
+      logging: true, useCORS: true, scrollY: -window.scrollY }).then(canvas => {
       const link = document.createElement('a');
 
       if (typeof link.download === 'string') {
