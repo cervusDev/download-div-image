@@ -1,13 +1,17 @@
 import React from 'react'
 import { useScreenshot, createFileName } from 'use-react-screenshot'
 
-export const DownloadDivs = React.forwardRef((props, ref) => {
+export const DownloadDivs = React.forwardRef(({ imageRef }, ref) => {
   const imgRef = React.useRef(null);
-  const [_, takeScreenShot] = useScreenshot({
+  const [image, takeScreenShot] = useScreenshot({
     type: "image/jpeg",
     quality: 1.0,
     ref: imgRef,
   });
+
+  React.useEffect(() => {
+    console.log("image", image);
+  }, [image]);
 
   const download = React.useCallback((image, { name = "img", extension = "jpg" } = {}) => {
     const element = document.createElement("a");
@@ -20,5 +24,5 @@ export const DownloadDivs = React.forwardRef((props, ref) => {
     downloadScreenshot: () => takeScreenShot(imgRef).then(res => download(res.image, { name: "download", extension: "jpg" }))
   }),[takeScreenShot, download]);
 
-  return <div id='dowload-map-pdf' ref={imgRef}>Example Div</div>;
+  return <div id={imageRef} ref={imgRef}>Example Div</div>;
 });
